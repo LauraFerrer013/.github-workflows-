@@ -1,0 +1,25 @@
+# .github-workflows-name: Generate Snake Animation
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # todos os dias
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Platane/snk@master
+        id: snake-gif
+        with:
+          github_user_name: LauraFerrer013
+          outputs: |
+            dist/github-contribution-grid-snake.svg
+
+      - name: Push snake animation
+        uses: crazy-max/ghaction-github-pages@v3
+        with:
+          target_branch: output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
